@@ -3,10 +3,11 @@ import contract from "../contracts/DealClient.json";
 import "react-tooltip/dist/react-tooltip.css";
 import { Tooltip } from "react-tooltip";
 import { ethers } from "ethers";
-import { AiOutlineQuestionCircle } from "react-icons/ai";
+import { AiOutlineQuestionCircle, AiOutlineLoading } from "react-icons/ai";
 const CID = require("cids");
 
-const contractAddress = "0x580C1c0b7bA54D3aC5109ba98cfC46152Da6e2FD";
+ // Replace this address with the address of own instance of the deal client contract
+const contractAddress = "0xf4E0C74D76Bf324293bB3B3DA184d164d06F7664";
 const contractABI = contract.abi;
 let dealClient;
 let cid;
@@ -24,6 +25,8 @@ function Inputs() {
   const [carSize, setCarSize] = useState("236445");
   const [txSubmitted, setTxSubmitted] = useState("");
   const [dealID, setDealID] = useState("");
+  const [proposingDeal, setProposingDeal] = useState(false);
+  const [network, setNetwork] = useState("");
 
   const handleChangeCommP = (event) => {
     setCommP(event.target.value);
@@ -62,6 +65,9 @@ function Inputs() {
     console.log(carSize);
 
     try {
+      setErrorMessageSubmit(
+        ""
+      );
       cid = new CID(commP);
       const { ethereum } = window;
       if (ethereum) {
@@ -82,7 +88,7 @@ function Inputs() {
           cid.bytes, //cidHex
           pieceSize, //taskArgs.pieceSize,
           false, //taskArgs.verifiedDeal,
-          "", //taskArgs.label,
+          commP, //taskArgs.label,
           520000, // startEpoch
           1555200, // endEpoch
           0, // taskArgs.storagePricePerEpoch,
@@ -97,8 +103,10 @@ function Inputs() {
           DealRequestStruct
         );
         console.log("Proposing deal...");
+        setProposingDeal(true);
         const receipt = await transaction.wait();
         console.log(receipt);
+        setProposingDeal(false);
         setTxSubmitted("Transaction submitted! " + receipt.hash);
 
         dealClient.on("DealProposalCreate", (id, size, verified, price)=>{
@@ -112,13 +120,13 @@ function Inputs() {
     } catch (error) {
       console.log(error);
       setErrorMessageSubmit(
-        "Something went wrong. Please check that you have a valid carfile input and a valid commP."
+        "Something went wrong. " + error.name + " " + error.message
       );
       return;
     }
   };
 
-  const checkWalletIsConnected = () => {
+  const checkWalletIsConnected = async () => {
     const { ethereum } = window;
     if (!ethereum) {
       console.log("Make sure you have metamask!");
@@ -126,6 +134,10 @@ function Inputs() {
     } else {
       console.log("We have the ethereum object", ethereum);
     }
+    const provider = new ethers.BrowserProvider(ethereum);
+    const network = await provider.getNetwork();
+    setNetwork(network.chainId);
+    console.log(network.chainId);
 
     ethereum.request({ method: "eth_accounts" }).then((accounts) => {
       if (accounts.length !== 0) {
@@ -153,12 +165,16 @@ function Inputs() {
 
   const connectWalletButton = () => {
     return (
+      <div style={{ display: "flex" }}> <div class="child-1-cw"> 
       <button
         onClick={connectWalletHandler}
         className="cta-button connect-wallet-button"
       >
         Connect Wallet
       </button>
+      { window && <div style={{ color: "green" }}> Connected </div>}
+      { network && <div style={{ color: "green" }}> Network: Hyperspace </div>}
+      </div></div>
     );
   };
 
@@ -173,18 +189,21 @@ function Inputs() {
   };
 
   const dealIDHandler = async () => {
-    setInterval(async () => {
-        setDealID("Loading");
-        console.log(cid);
+    setDealID("Waiting for acceptance by SP...");
+    cid = new CID(commP);
+    var refresh = setInterval(async () => {
+        console.log(cid.bytes);
+        if (cid === undefined) {
+          setDealID("Error: CID not found");
+          clearInterval(refresh);
+        }
         console.log("Checking for deal ID...");
         const dealID = await dealClient.pieceDeals(cid.bytes);
         console.log(dealID);
-        const receipt = await dealID.wait();
-        console.log(receipt);
-        if (dealID !== undefined && typeof(transaction) === "number") {
-          setDealID("https://filfox.info/en/deal/" + dealID);
+        if (dealID !== undefined && dealID !== "0n") {
+          setDealID("https://hyperspace.filfox.info/en/deal/" + dealID);
           console.log(dealID);
-          return;
+          clearInterval(refresh);
         }
       }, 5000
     );
@@ -198,7 +217,6 @@ function Inputs() {
     <div id="container"> 
       <div style={{ display: "flex" }}> <div class="child-1-cw"> 
         {connectWalletButton()}
-        {window && <div style={{ color: "green" }}> Connected: Hyperspace </div>}
       </div></div>
 
       <form class="child-1"  onSubmit={handleSubmit}>
@@ -297,7 +315,7 @@ function Inputs() {
           class="tooltip"
           data-tooltip-id="carsize-tooltip"
           data-tooltip-delay-hide={50}
-          data-tooltip-html="This is the size of the CAR file in bytes. <br /> You can go to data.fvm.dev and get this by uploading your file (site in development). <br /> This also can be accessed by running curl -I <URL to CAR file> on your command line."
+          data-tooltip-html="This is the size of the CAR file in bytes. <br /> You can go to data.fvm.dev and get this by uploading your file (site in development). <br /> This can be accessed as the output of tech-greedy/generate-car."
         >
           <AiOutlineQuestionCircle />
         </div>
@@ -316,6 +334,7 @@ function Inputs() {
           Submit
         </button>
         <div style={{ color: "red" }}> {errorMessageSubmit} </div>
+        { proposingDeal && <div style={{ color: "orange" }}> Loading: {<AiOutlineLoading />} </div>}
         <div style={{ color: "green" }}> {txSubmitted} </div>
       </form>
 
