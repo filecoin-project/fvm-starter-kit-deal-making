@@ -48,11 +48,11 @@ You should get a json file that looks like this:
 {"Ipld":{"Name":"","Hash":"bafybeieawlmgtnb455ynra7kxyzipvhfxrms5yeuylr4w7dbpx7w4e6tqe","Size":0,"Link":[{"Name":"shapes.png","Hash":"bafybeigeisbcozxm7xyuf6vviijjg5fm2ptha2ciuyvjfdaedunhdfwsee","Size":1687130,"Link":null}]},"DataCid":"bafybeieawlmgtnb455ynra7kxyzipvhfxrms5yeuylr4w7dbpx7w4e6tqe","PieceCid":"baga6ea4seaqesm5ghdwocotmdavlrrzssfl33xho6xtrr5grwyi5gj3vtairaoq","PieceSize":2097152,"CidMap":{"":{"IsDir":true,"Cid":"bafybeieawlmgtnb455ynra7kxyzipvhfxrms5yeuylr4w7dbpx7w4e6tqe"},"shapes.png":{"IsDir":false,"Cid":"bafybeigeisbcozxm7xyuf6vviijjg5fm2ptha2ciuyvjfdaedunhdfwsee"}}}
 ```
 
-Note that (A2) is `PieceSize`, (A3) is `Size`, (A4) is `PieceCid`. 
+Note that `(A2)` is `PieceSize`, `(A3)` is `Size`,`(A4)` is `PieceCid`. 
 
 2. As a result of the above, you should also get a `.car` file. You can upload this file to [Web3.storage](https://web3.storage/), click on the CID column, and right click on the `Copy Link Location` once you get to the IPFS portal. You should get a link that looks something like this: https://bafybeif74tokne4wvxsrcsxh6dhrzv6ys7mtifhwzaen7jfjuvltean32a.ipfs.w3s.link/ipfs/bafybeif74tokne4wvxsrcsxh6dhrzv6ys7mtifhwzaen7jfjuvltean32a/baga6ea4seaqesm5ghdwocotmdavlrrzssfl33xho6xtrr5grwyi5gj3vtairaoq.car
 
-This link is (A1) for your file.
+This link is `(A1)` for your file.
 
 
 ## (II) Preparing the Deal Proposal Payload
