@@ -30,7 +30,14 @@ make build
 forge create --rpc-url https://api.hyperspace.node.glif.io/rpc/v1 --private-key $PRIVATE_KEY src/DealClient.sol:DealClient
 ```
 
-### 4. Example variants in terms of building blocks
+### 4. Compile to Hyperspace
+
+Store the resulting contract address (called `Deployed to`) in your env:
+```
+export CC_ADDRESSS='0xdeadbeef123'
+```
+
+### 5. Example variants in terms of building blocks
 
 * A simple data DAO can be implemented with a client that adds cids through a voting mechanism
 * Perpetual storage contracts can by implemented with clients that funds deals with defi mechanisms and recycle cids from expiring deals into their authorization sets
