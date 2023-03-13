@@ -35,6 +35,12 @@ Store the resulting contract address (called `Deployed to`) in your env:
 export CC_ADDRESSS='0xdeadbeef123'
 ```
 
+Note, in order to deploy on mainnet, you would need to swap out the RPC:
+```
+forge create --rpc-url https://api.node.glif.io/rpc/v1 --private-key $PRIVATE_KEY src/DealClient.sol:DealClient
+```
+
+
 ### 4. Example variants in terms of building blocks
 
 * A simple data DAO can be implemented with a client that adds cids through a voting mechanism
