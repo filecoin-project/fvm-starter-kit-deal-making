@@ -4,6 +4,7 @@ import "react-tooltip/dist/react-tooltip.css";
 import { Tooltip } from "react-tooltip";
 import { ethers } from "ethers";
 import { AiOutlineQuestionCircle, AiOutlineLoading } from "react-icons/ai";
+import { Spinner } from 'react-bootstrap';
 const CID = require("cids");
 
  // Replace this address with the address of own instance of the deal client contract
@@ -334,7 +335,7 @@ function Inputs() {
           Submit
         </button>
         <div style={{ color: "red" }}> {errorMessageSubmit} </div>
-        { proposingDeal && <div style={{ color: "orange" }}> Loading: {<AiOutlineLoading />} </div>}
+        { proposingDeal && <div style={{ color: "orange" }}> Loading: {<Spinner />} </div>}
         <div style={{ color: "green" }}> {txSubmitted} </div>
       </form>
 
