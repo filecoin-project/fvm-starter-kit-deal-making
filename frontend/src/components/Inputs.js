@@ -7,7 +7,7 @@ import { AiOutlineQuestionCircle, AiOutlineLoading } from "react-icons/ai";
 const CID = require("cids");
 
  // Replace this address with the address of own instance of the deal client contract
-const contractAddress = "0xf4E0C74D76Bf324293bB3B3DA184d164d06F7664";
+const contractAddress = "0x9b2A284d382860F62F41258A9d1cCEfF56474f37";
 const contractABI = contract.abi;
 let dealClient;
 let cid;
