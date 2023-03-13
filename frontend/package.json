@@ -14,14 +14,12 @@
     "react-icons": "^4.8.0",
     "react-scripts": "^5.0.1",
     "react-tooltip": "^5.10.0",
-    "surge": "^0.23.1",
     "web-vitals": "^3.3.0"
   },
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "surge": "cp build/index.html build/200.html && surge ./build",
     "eject": "react-scripts eject"
   },
   "eslintConfig": {

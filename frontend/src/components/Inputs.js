@@ -15,14 +15,14 @@ let cid;
 function Inputs() {
   // Initialize with some dummy working default values
   const [commP, setCommP] = useState(
-    "baga6ea4seaqlnvynus6vwba7rob4tuslkutuvl6zuon46cfla4ebkxcn3yxd2ji"
+    "baga6ea4seaqkp2pjlh6avlvee6ib2maanav5sc35l5glf3zm6rd6hmfgcx5xeji"
   );
   const [carLink, setCarLink] = useState(
-    "http://85.11.148.122:24008/screenshot.car"
+    "https://data-depot.lighthouse.storage/api/download/download_car?fileId=862fb115-d24a-4ff1-a1c8-eadbbbfd19cf.car"
   );
   const [errorMessageSubmit, setErrorMessageSubmit] = useState("");
-  const [pieceSize, setPieceSize] = useState("262144");
-  const [carSize, setCarSize] = useState("236445");
+  const [pieceSize, setPieceSize] = useState("32768");
+  const [carSize, setCarSize] = useState("18445");
   const [txSubmitted, setTxSubmitted] = useState("");
   const [dealID, setDealID] = useState("");
   const [proposingDeal, setProposingDeal] = useState(false);
@@ -200,9 +200,9 @@ function Inputs() {
         console.log("Checking for deal ID...");
         const dealID = await dealClient.pieceDeals(cid.bytes);
         console.log(dealID);
-        if (dealID !== undefined && dealID !== "0n") {
+        if (dealID !== undefined && dealID !== "0") {
+          // 
           setDealID("https://hyperspace.filfox.info/en/deal/" + dealID);
-          console.log(dealID);
           clearInterval(refresh);
         }
       }, 5000
