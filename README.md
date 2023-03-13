@@ -1,3 +1,5 @@
+*Note: This document has prior revisions visible in: https://www.notion.so/pl-strflt/FVM-Deal-Making-9180651d57334279a24f3e9786d44c66*
+
 # fvm-starter-kit-deal-making
 Full dapp starter kit for automating Filecoin deal making
 
