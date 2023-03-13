@@ -5,6 +5,27 @@ The whole flow for deal making (from file upload to making a deal on FVM) is des
 
 ![shapes (6) copy](https://user-images.githubusercontent.com/782153/224225887-1a546129-62b5-41e8-b98d-eb52fe35fac8.png)
 
+Get started with 
+
+```bash
+# clone the repo
+git clone --recurse-submodules git@github.com:filecoin-project/fvm-starter-kit-deal-making.git
+# add your private key
+export PRIVATE_KEY='abcdef'
+# install and setup the hardhat kit
+cd fevm-hardhat-kit
+yarn install
+```
+
+You can deploy the client contract with the `forge` invocation as [described here](https://github.com/filecoin-project/fvm-starter-kit-deal-making/tree/main/client-contract).
+
+You can then set the client contract address in your env:
+```
+export CC_ADDRESSS='0xdeadbeef123'
+```
+
+Make sure you set the `$CC_ADDRESSS` and `$PRIVATE_KEY` fields in your env before proceeding.
+
 ## (I) Data Prep
 
 Files need to be converted and prepped for storage on FVM. 
@@ -81,13 +102,45 @@ Because of the way the client contract is set up, you need to prepare a deal pro
   ];
 ```
 
+Here is an example with these fields initialized:
+
+```jsx
+  const extraParamsV1 = [
+    "https://bafybeif74tokne4wvxsrcsxh6dhrzv6ys7mtifhwzaen7jfjuvltean32a.ipfs.w3s.link/ipfs/bafybeif74tokne4wvxsrcsxh6dhrzv6ys7mtifhwzaen7jfjuvltean32a/baga6ea4seaqesm5ghdwocotmdavlrrzssfl33xho6xtrr5grwyi5gj3vtairaoq.car", // (A1)
+    236445, // (A3)
+    false, // skipIpniAnnounce (whether or not the deal should be announced to IPNI indexers, set to false)
+    false, // removeUnsealedCopy
+  ];
+  const DealRequestStruct = [
+    "baga6ea4seaqesm5ghdwocotmdavlrrzssfl33xho6xtrr5grwyi5gj3vtairaoq", // (A4)
+    262144, // (A2)
+    false, // verifiedDeal (whether the deal has datacap or not)
+    "baga6ea4seaqesm5ghdwocotmdavlrrzssfl33xho6xtrr5grwyi5gj3vtairaoq", // label (how the deal is labelled, needs to be A4)
+    520000, // startEpoch (when you want the storage to start)
+    1555200, // endEpoch (when you want the storage to end)
+    0, // storagePricePerEpoch (how much attoFIL per GiB per 30s you are offering for this deat, set to 0 for a free deal)
+    0, // providerCollateral
+    0, // clientCollateral
+    1, // extraParamsVersion (set to 1)
+    extraParamsV1,
+  ];
+```
+
 ### Option A: Use the dapp frontend
 
-Take the four outputs of part (I) and put each into the four fields of the frontend in this repo. 
+Take the four outputs of part (I) and put each into the four fields of the [frontend in this repo](https://github.com/filecoin-project/fvm-starter-kit-deal-making/tree/main/frontend). 
 
 Once the deal handshake is completed (described more in part III), you should be able to see the deal ID for this transaction in Filfox on the frontend. Here is a previous example of a DealID submitted through the frontend: https://hyperspace.filfox.info/en/deal/1016.
 
-### Option B: Other Scripts
+### Option B: Use the hardhat task
+
+If you followed the directions above, you should be able to run the hardhat task instead of using the dapp frontend:
+
+```
+yarn hardhat make-deal-proposal --contract $CC_ADDRESSS --piece-cid baga6ea4seaqayn6kwvhnajfgec2qakj7vb5aeqisbbnojunowdyapkdfcyhzcpy --piece-size 262144 --verified-deal false --label "baga6ea4seaqayn6kwvhnajfgec2qakj7vb5aeqisbbnojunowdyapkdfcyhzcpy" --start-epoch 520000 --end-epoch 1555200 --storage-price-per-epoch 0 --provider-collateral 0 --client-collateral 0 --extra-params-version 1 --location-ref "https://data-depot.lighthouse.storage/api/download/download_car?fileId=005b377e-89a6-44c6-aa04-871509019bec.car" --car-size 194875 --skip-ipni-announce false --remove-unsealed-copy false
+```
+
+### Option C: Other Scripts
 
 While the above code snippet (and the logic for the dapp frontend) is implemented in javascript, you can implement this in many different langauges and formats. 
 
