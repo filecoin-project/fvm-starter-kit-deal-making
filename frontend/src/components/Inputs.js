@@ -3,12 +3,12 @@ import contract from "../contracts/DealClient.json";
 import "react-tooltip/dist/react-tooltip.css";
 import { Tooltip } from "react-tooltip";
 import { ethers } from "ethers";
-import { AiOutlineQuestionCircle, AiOutlineLoading } from "react-icons/ai";
-import { Spinner } from 'react-bootstrap';
+import { AiOutlineQuestionCircle } from "react-icons/ai";
+import Spinner from 'react-bootstrap/Spinner';
 const CID = require("cids");
 
  // Replace this address with the address of own instance of the deal client contract
-const contractAddress = "0x9b2A284d382860F62F41258A9d1cCEfF56474f37";
+const contractAddress = "0xf4E0C74D76Bf324293bB3B3DA184d164d06F7664";
 const contractABI = contract.abi;
 let dealClient;
 let cid;
@@ -202,7 +202,8 @@ function Inputs() {
         const dealID = await dealClient.pieceDeals(cid.bytes);
         console.log(dealID);
         if (dealID !== undefined && dealID !== "0") {
-          // 
+          // If your deal has already been submitted, you can get the deal ID by going to https://hyperspace.filfox.info/en/deal/<dealID>
+          // The link will show up in the frontend: once a deal has been submitted, its deal ID stays constant. It will always have the same deal ID.
           setDealID("https://hyperspace.filfox.info/en/deal/" + dealID);
           clearInterval(refresh);
         }
@@ -335,7 +336,9 @@ function Inputs() {
           Submit
         </button>
         <div style={{ color: "red" }}> {errorMessageSubmit} </div>
-        { proposingDeal && <div style={{ color: "orange" }}> Loading: {<Spinner />} </div>}
+        { proposingDeal && <Spinner animation="border" role="status">
+          <span className="visually-hidden">Loading...</span>
+        </Spinner>}
         <div style={{ color: "green" }}> {txSubmitted} </div>
       </form>
 
