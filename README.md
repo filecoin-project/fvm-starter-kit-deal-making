@@ -154,16 +154,6 @@ If you followed the directions above, you should be able to run the hardhat task
 yarn hardhat make-deal-proposal --contract $CC_ADDRESSS --piece-cid baga6ea4seaqayn6kwvhnajfgec2qakj7vb5aeqisbbnojunowdyapkdfcyhzcpy --piece-size 262144 --verified-deal false --label "baga6ea4seaqayn6kwvhnajfgec2qakj7vb5aeqisbbnojunowdyapkdfcyhzcpy" --start-epoch 520000 --end-epoch 1555200 --storage-price-per-epoch 0 --provider-collateral 0 --client-collateral 0 --extra-params-version 1 --location-ref "https://data-depot.lighthouse.storage/api/download/download_car?fileId=005b377e-89a6-44c6-aa04-871509019bec.car" --car-size 194875 --skip-ipni-announce false --remove-unsealed-copy false
 ```
 
-### Option C: Other Scripts
-
-While the above code snippet (and the logic for the dapp frontend) is implemented in javascript, you can implement this in many different langauges and formats. 
-
-[Here is an (incomplete) example in Python](https://github.com/lotus-web3/dotStorage-deal-renewal/blob/main/scripts/renew.py). 
-
-[Here is (a previously implemented one) in Go.](https://github.com/nonsense/datadaotool)
-
-Note that these are both at various levels of completion. We encourage more scripts to be added here based on your development of these smart contracts here!
-
 ## (III) Interacting with the Client Contract (CC)
 
 The CC is built to interact with Boost SPs and generate deals on behalf of a client, entirely on-chain. This differs from the deal bounty contract, for example, which relies on an offchain bonuty hunter in order to make deals.
