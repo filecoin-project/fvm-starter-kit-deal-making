@@ -1,8 +1,11 @@
-In order to set up and deploy the client contract,
+### 0. Disclaimers
+
+:warning: **Warning**
+The client contract in this repo is unaudited and has yet to be tested on a production dapp. Please DYOR, and use at your own risk. We *strongly* recommend getting this contract audited if you plan on using this in production.
 
 ### 1. Install Foundry
 
-[Full directions here](https://github.com/foundry-rs/foundry)
+In order to set up and deploy the client contract,
 
 ```
 curl -L https://foundry.paradigm.xyz | bash
@@ -11,6 +14,8 @@ foundryup
 ```
 
 If you are on MacOS, you might need to install libusb: `brew install libusb`
+
+[Full directions here](https://github.com/foundry-rs/foundry)
 
 ### 2. Set up directory
 
