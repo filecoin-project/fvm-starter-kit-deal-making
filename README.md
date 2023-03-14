@@ -57,7 +57,7 @@ Given a file A you want to upload, you need to gather four bits of information:
 
 ### Option A: Use FVM Tooling
 
-Go to https://data.lighthouse.storage/ or https://data.fvm.dev/, upload A, and get these four fields out. 
+Go to https://data.lighthouse.storage/, upload A, and get these four fields out. 
 
 Note: We hold your files for 30 days before the link to your car file expires. Make your smart contracts sometime soon after data prep so that your data can persist much longer through FVM!
 
