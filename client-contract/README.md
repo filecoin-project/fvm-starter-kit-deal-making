@@ -14,16 +14,16 @@ If you are on MacOS, you might need to install libusb: `brew install libusb`
 
 ### 2. Set up directory
 
+Run 
+```
+npm install
+make build
+```
 
 Run `forge build` to make sure all necessary libraries are installed.
 
 Run `forge test` to install any necessary testing libraries.
 
-Then run 
-```
-npm install
-make build
-```
 ### 3. Compile and Deploy (on HS)
 
 ```
