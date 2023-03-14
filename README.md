@@ -38,7 +38,7 @@ Make sure you have:
 
 before proceeding.
 
-(1) Can be difficult, try rerunning `forge create` multiple times. You can also deploy the client contract through [Remix](https://remix.ethereum.org/) or with your own Hardhat deployment.
+:warning: (1) Can be difficult. If you get an error on `forge create`, double check to make sure that the contract wasn't deployed anyways. Check the deployer address on https://filfox.info/ and check the latest messages. You can get the contract address from there. Failing that, try rerunning `forge create` multiple times. You can also deploy the client contract through [Remix](https://remix.ethereum.org/) or with your own Hardhat deployment.
 
 ## (I) Data Prep
 
