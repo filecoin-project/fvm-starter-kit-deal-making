@@ -7,6 +7,8 @@ The whole flow for deal making (from file upload to making a deal on FVM) is des
 
 ![shapes (6) copy](https://user-images.githubusercontent.com/782153/224225887-1a546129-62b5-41e8-b98d-eb52fe35fac8.png)
 
+## Using this Repo
+
 Get started with 
 
 ```bash
@@ -19,14 +21,24 @@ cd fevm-hardhat-kit
 yarn install
 ```
 
-You can deploy the client contract with the `forge` invocation as [described here](https://github.com/filecoin-project/fvm-starter-kit-deal-making/tree/main/client-contract).
+Now, deploy the client contract with the `forge` invocation as [described here](https://github.com/filecoin-project/fvm-starter-kit-deal-making/tree/main/client-contract).
 
-You can then set the client contract address in your env:
+Now set the client contract address in your env:
 ```
 export CC_ADDRESSS='0xdeadbeef123'
 ```
 
-Make sure you set the `$CC_ADDRESSS` and `$PRIVATE_KEY` fields in your env before proceeding.
+Also, edit the contract address in your frontend on `Input.js`: https://github.com/filecoin-project/fvm-starter-kit-deal-making/blob/main/frontend/src/components/Inputs.js#L11
+
+Make sure you have:
+1. Deployed your client contract on HS
+2. Set the `$CC_ADDRESSS` in your env
+3. Set the `$PRIVATE_KEY` in your env 
+4. Set the contract adddress in the [frontend](https://github.com/filecoin-project/fvm-starter-kit-deal-making/blob/main/frontend/src/components/Inputs.js#L11)
+
+before proceeding.
+
+(1) Can be difficult, try rerunning `forge create` multiple times. You can also deploy the client contract through [Remix](https://remix.ethereum.org/) or with your own Hardhat deployment.
 
 ## (I) Data Prep
 
