@@ -148,9 +148,14 @@ Once the deal handshake is completed (described more in part III), you should be
 
 ### Option B: Use the hardhat task
 
-If you followed the directions above, you should be able to run the hardhat task instead of using the dapp frontend:
+You should be able to run the hardhat task:
 
-```
+```bash
+cd fevm-hardhat-kit
+yarn install
+yarn hardhat deploy 
+# (optionally) reset CC_ADDRESSS with the output of the DealClient address
+# now you can run make-deal-proposal
 yarn hardhat make-deal-proposal --contract $CC_ADDRESSS --piece-cid baga6ea4seaqayn6kwvhnajfgec2qakj7vb5aeqisbbnojunowdyapkdfcyhzcpy --piece-size 262144 --verified-deal false --label "baga6ea4seaqayn6kwvhnajfgec2qakj7vb5aeqisbbnojunowdyapkdfcyhzcpy" --start-epoch 520000 --end-epoch 1555200 --storage-price-per-epoch 0 --provider-collateral 0 --client-collateral 0 --extra-params-version 1 --location-ref "https://data-depot.lighthouse.storage/api/download/download_car?fileId=005b377e-89a6-44c6-aa04-871509019bec.car" --car-size 194875 --skip-ipni-announce false --remove-unsealed-copy false
 ```
 
