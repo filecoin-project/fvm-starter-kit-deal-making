@@ -31,7 +31,7 @@ export CC_ADDRESSS='0xdeadbeef123'
 Also, edit the contract address in your frontend on `Input.js`: https://github.com/filecoin-project/fvm-starter-kit-deal-making/blob/main/frontend/src/components/Inputs.js#L11
 
 Make sure you have:
-1. Deployed your client contract on HS
+1. Deployed your client contract on Hyperspace
 2. Set the `$CC_ADDRESSS` in your env
 3. Set the `$PRIVATE_KEY` in your env 
 4. Set the contract adddress in the [frontend](https://github.com/filecoin-project/fvm-starter-kit-deal-making/blob/main/frontend/src/components/Inputs.js#L11)
