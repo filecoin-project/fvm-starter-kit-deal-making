@@ -1,6 +1,7 @@
 {
   "dependencies": {
-    "@zondax/filecoin-solidity": "4.0.2"
+    "@zondax/filecoin-solidity": "4.0.2",
+    "solidity-cborutils": "^2.0.0"
   },
   "devDependencies": {
     "husky": "^8.0.3",
@@ -17,6 +18,8 @@
     }
   },
   "lint-staged": {
-    "*.sol": ["npx prettier --write"]
+    "*.sol": [
+      "npx prettier --write"
+    ]
   }
 }

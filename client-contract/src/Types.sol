@@ -2,7 +2,7 @@
 pragma solidity ^0.8.17;
 
 import {MarketTypes} from "@zondax/filecoin-solidity/contracts/v0.8/types/MarketTypes.sol";
-import {CBOR} from "@zondax/filecoin-solidity/contracts/v0.8/external/CBOR.sol";
+import {CBOR} from "solidity-cborutils/contracts/CBOR.sol";
 import {FilecoinCBOR} from "@zondax/filecoin-solidity/contracts/v0.8/cbor/FilecoinCbor.sol";
 import {CBORDecoder} from "@zondax/filecoin-solidity/contracts/v0.8/utils/CborDecode.sol";
 import {CommonTypes} from "@zondax/filecoin-solidity/contracts/v0.8/types/CommonTypes.sol";
@@ -13,6 +13,7 @@ using CBORDecoder for bytes;
 using BigIntCBOR for CommonTypes.BigInt;
 using BigIntCBOR for bytes;
 using FilecoinCBOR for CBOR.CBORBuffer;
+using FilecoinCBOR for bytes;
 
 struct MarketDealNotifyParams {
     bytes dealProposal;
@@ -48,9 +49,11 @@ function serializeDealProposal(
     buf.writeBool(dealProposal.verified_deal);
     buf.writeBytes(dealProposal.client.data);
     buf.writeBytes(dealProposal.provider.data);
-    buf.writeString(dealProposal.label);
-    buf.writeInt64(dealProposal.start_epoch);
-    buf.writeInt64(dealProposal.end_epoch);
+    dealProposal.label.isString ?
+      buf.writeString(string(dealProposal.label.data)) :
+      buf.writeBytes(dealProposal.label.data);
+    buf.writeInt64(CommonTypes.ChainEpoch.unwrap(dealProposal.start_epoch));
+    buf.writeInt64(CommonTypes.ChainEpoch.unwrap(dealProposal.end_epoch));
     buf.writeBytes(dealProposal.storage_price_per_epoch.serializeBigInt());
     buf.writeBytes(dealProposal.provider_collateral.serializeBigInt());
     buf.writeBytes(dealProposal.client_collateral.serializeBigInt());
@@ -83,9 +86,9 @@ function deserializeDealProposal(
     (ret.client.data, byteIdx) = rawResp.readBytes(byteIdx);
     (ret.provider.data, byteIdx) = rawResp.readBytes(byteIdx);
 
-    (ret.label, byteIdx) = rawResp.readString(byteIdx);
-    (ret.start_epoch, byteIdx) = rawResp.readInt64(byteIdx);
-    (ret.end_epoch, byteIdx) = rawResp.readInt64(byteIdx);
+    (ret.label, byteIdx) = rawResp.readDealLabel(byteIdx);
+    (ret.start_epoch, byteIdx) = rawResp.readChainEpoch(byteIdx);
+    (ret.end_epoch, byteIdx) = rawResp.readChainEpoch(byteIdx);
 
     bytes memory storage_price_per_epoch_bytes;
     (storage_price_per_epoch_bytes, byteIdx) = rawResp.readBytes(byteIdx);

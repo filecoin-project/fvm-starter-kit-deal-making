@@ -9,8 +9,8 @@ import {CommonTypes} from "@zondax/filecoin-solidity/contracts/v0.8/types/Common
 import {AccountCBOR} from "@zondax/filecoin-solidity/contracts/v0.8/cbor/AccountCbor.sol";
 import {MarketCBOR} from "@zondax/filecoin-solidity/contracts/v0.8/cbor/MarketCbor.sol";
 import {BytesCBOR} from "@zondax/filecoin-solidity/contracts/v0.8/cbor/BytesCbor.sol";
-import {BigNumbers} from "@zondax/filecoin-solidity/contracts/v0.8/external/BigNumbers.sol";
-import {CBOR} from "@zondax/filecoin-solidity/contracts/v0.8/external/CBOR.sol";
+import {BigNumbers, BigNumber} from "@zondax/solidity-bignumber/src/BigNumbers.sol";
+import {CBOR} from "solidity-cborutils/contracts/CBOR.sol";
 import {Misc} from "@zondax/filecoin-solidity/contracts/v0.8/utils/Misc.sol";
 import {FilAddresses} from "@zondax/filecoin-solidity/contracts/v0.8/utils/FilAddresses.sol";
 import {MarketDealNotifyParams, deserializeMarketDealNotifyParams, serializeDealProposal, deserializeDealProposal} from "./Types.sol";
@@ -190,9 +190,10 @@ contract DealClient {
         ret.client = getDelegatedAddress(address(this));
         // Set a dummy provider. The provider that picks up this deal will need to set its own address.
         ret.provider = FilAddresses.fromActorID(0);
-        ret.label = deal.label;
-        ret.start_epoch = deal.start_epoch;
-        ret.end_epoch = deal.end_epoch;
+        // not sure if isString bool should be true here cause of bytes type conversion
+        ret.label = CommonTypes.DealLabel(bytes(deal.label), true);
+        ret.start_epoch = CommonTypes.ChainEpoch.wrap(deal.start_epoch);
+        ret.end_epoch = CommonTypes.ChainEpoch.wrap(deal.end_epoch);
         ret.storage_price_per_epoch = uintToBigInt(
             deal.storage_price_per_epoch
         );
@@ -293,9 +294,9 @@ contract DealClient {
         require(pieceDeals[pieceCid] > 0, "no deal published for this piece cid");
 
         MarketTypes.GetDealActivationReturn memory ret = MarketAPI.getDealActivation(pieceDeals[pieceCid]);
-        if (ret.terminated > 0) {
+        if (CommonTypes.ChainEpoch.unwrap(ret.terminated) > 0) {
             pieceStatus[pieceCid] = Status.DealTerminated;
-        } else if (ret.activated > 0) {
+        } else if (CommonTypes.ChainEpoch.unwrap(ret.activated) > 0) {
             pieceStatus[pieceCid] = Status.DealActivated;
         }
     }
@@ -312,7 +313,7 @@ contract DealClient {
     function uintToBigInt(
         uint256 value
     ) internal view returns (CommonTypes.BigInt memory) {
-        BigNumbers.BigNumber memory bigNumVal = BigNumbers.init(value, false);
+        BigNumber memory bigNumVal = BigNumbers.init(value, false);
         CommonTypes.BigInt memory bigIntVal = CommonTypes.BigInt(
             bigNumVal.val,
             bigNumVal.neg
@@ -323,7 +324,7 @@ contract DealClient {
     function bigIntToUint(
         CommonTypes.BigInt memory bigInt
     ) internal view returns (uint256) {
-        BigNumbers.BigNumber memory bigNumUint = BigNumbers.init(
+        BigNumber memory bigNumUint = BigNumbers.init(
             bigInt.val,
             bigInt.neg
         );
