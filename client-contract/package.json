@@ -1,6 +1,6 @@
 {
   "dependencies": {
-    "@zondax/filecoin-solidity": "2.0.0-beta.1"
+    "@zondax/filecoin-solidity": "4.0.2"
   },
   "devDependencies": {
     "husky": "^8.0.3",
