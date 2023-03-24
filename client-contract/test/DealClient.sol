@@ -4,7 +4,7 @@ pragma solidity ^0.8.13;
 import "forge-std/Test.sol";
 import "../src/DealClient.sol";
 import { MarketTypes } from "@zondax/filecoin-solidity/contracts/v0.8/types/MarketTypes.sol";
-import { serializeDealProposal, deserializeDealProposal } from "../src/Types.sol";
+import {MarketCBOR} from "@zondax/filecoin-solidity/contracts/v0.8/cbor/MarketCbor.sol";
 
 contract MockMarket {
     function publish_deal(bytes memory raw_auth_params, address callee) public {
@@ -81,7 +81,7 @@ contract DealClientTest is Test {
         bytes32 requestId = client.makeDealProposal(createDealRequest());
 
         bytes memory cborDealProposal = client.getDealProposal(requestId);
-        MarketTypes.DealProposal memory dp = deserializeDealProposal(cborDealProposal);
+        MarketTypes.DealProposal memory dp = MarketCBOR.deserializeDealProposal(cborDealProposal);
         require(keccak256(testCID) == keccak256(dp.piece_cid.data));
 //        require(dp.provider == FilAddresses.fromActorID(0));
 
