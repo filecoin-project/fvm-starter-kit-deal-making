@@ -9,57 +9,44 @@ The whole flow for deal making (from file upload to making a deal on FVM) is des
 
 ## Using this Repo
 
-Get started with 
+Get started by typing in the following commands into your terminal/command prompt. This will clone the repo and all submodules, switch into the hardhat kit, install packages, and set your private key as an environment variable: 
 
-```bash
-# clone the repo
-git clone --recurse-submodules git@github.com:filecoin-project/fvm-starter-kit-deal-making.git
-# add your private key
-export PRIVATE_KEY='abcdef'
-# install and setup the hardhat kit
+```
+git clone --recurse-submodules https://github.com/filecoin-project/fvm-starter-kit-deal-making.git~
 cd fevm-hardhat-kit
 yarn install
+export PRIVATE_KEY='abcdef'
 ```
 
-Now, deploy the client contract with the `forge` invocation as [described here](https://github.com/filecoin-project/fvm-starter-kit-deal-making/tree/main/client-contract).
+Now type in the following command to deploy the contracts in the kit:
 
-Now set the client contract address in your env:
 ```
-export CC_ADDRESSS='0xdeadbeef123'
+yarn hardhat deploy
 ```
+Make sure to record the address of where the `DealClient.sol` is deployed for later use.
 
-Also, edit the contract address in your frontend on `Input.js`: https://github.com/filecoin-project/fvm-starter-kit-deal-making/blob/main/frontend/src/components/Inputs.js#L11
-
-Make sure you have:
-1. Deployed your client contract on Hyperspace
-2. Set the `$CC_ADDRESSS` in your env
-3. Set the `$PRIVATE_KEY` in your env 
-4. Set the contract adddress in the [frontend](https://github.com/filecoin-project/fvm-starter-kit-deal-making/blob/main/frontend/src/components/Inputs.js#L11)
-
-before proceeding.
-
-:warning: (1) Can be difficult. If you get an error on `forge create`, double check to make sure that the contract wasn't deployed anyways. Check the deployer address on https://filfox.info/ and check the latest messages. You can get the contract address from there. Failing that, try rerunning `forge create` multiple times. You can also deploy the client contract through [Remix](https://remix.ethereum.org/) or with your own Hardhat deployment.
+Now, edit the contract address for your frontend in [Input.js here](https://github.com/filecoin-project/fvm-starter-kit-deal-making/blob/main/frontend/src/components/Inputs.js#L11).
 
 ## (I) Data Prep
 
-Files need to be converted and prepped for storage on FVM. 
+Files need to be converted and prepped for storage on Filecoin. 
 
-Given a file A you want to upload, you need to gather four bits of information:
+For any file you want to upload you need to convert it to a .car file and obtain four pieces of information about this file. These are: 
 
-`(A1)` An https URL to the CAR file that represents A (`carLink`) (eg [this](https://bafybeif74tokne4wvxsrcsxh6dhrzv6ys7mtifhwzaen7jfjuvltean32a.ipfs.w3s.link/ipfs/bafybeif74tokne4wvxsrcsxh6dhrzv6ys7mtifhwzaen7jfjuvltean32a/baga6ea4seaqesm5ghdwocotmdavlrrzssfl33xho6xtrr5grwyi5gj3vtairaoq.car))
+* An https URL to the .car file so storage providers can download the file.
 
-`(A2)` The size of A in bytes (`pieceSize`) 
+* The size of the original file in bytes. This is the `piecesize`. 
 
-`(A3)` The size of the CAR file that represents A in bytes (`carSize`) 
+* The size of the CAR file that represents the file in bytes. This is known as the `carSize`.
 
-`(A4)` The piece CID of A (`commP`)
+* The piece CID of the file. This is essentially a hash that represents the file. This is also known as the `commP`.
 
 
 ### Option A: Use FVM Tooling
 
-Go to https://data.lighthouse.storage/, upload A, and get these four fields out. 
+One option is to go to the [FVM Data Depot](https://data.lighthouse.storage/), upload the file you want to store on Filecoin, and the tool will generate all the information we discussed. 
 
-Note: We hold your files for 30 days before the link to your car file expires. Make your smart contracts sometime soon after data prep so that your data can persist much longer through FVM!
+**Note**: The data depot is only meant as an intermediate step to get your data to the storage providers. It will hold your files for 30 days before the link to your car file expires. After this, storage providers will not be able to retrieve your file to store it. Make sure to to store you data 
 
 ### Option B: DIY Data Prep
 
