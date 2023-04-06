@@ -10,6 +10,17 @@ The whole flow for deal making (from file upload to making a deal on FVM) is des
 
 ![shapes (6) copy](https://user-images.githubusercontent.com/782153/224225887-1a546129-62b5-41e8-b98d-eb52fe35fac8.png)
 
+## Table of Contents
++ [Using this Repo](#using-this-repo)
++ [Data Prep](#1-data-prep)
+    - [Option A: Use FVM Tooling](#option-a-use-fvm-tooling)
++   - [Option B: Use the generate-car tool locally](#option-b-use-the-generate-car-tool-locally)
++ [Creating a Deal Proposal Payload](#2-creating-a-deal-proposal-payload)
++ [Calling the makeDealProposal method](#3-calling-the-makedealproposal-method)
+    - [Option A: Use the dapp frontend](#option-a-use-the-dapp-frontend)
+    - [Option B: Use the hardhat task](#option-b-use-the-hardhat-task)
++ [Boost Provider Picks up Deal](#4-boost-provider-picks-up-deal)
+
 ## Using this Repo
 
 Get started by typing in the following commands into your terminal/command prompt. This will clone the repo and all submodules, switch into the hardhat kit, and install packages: 
