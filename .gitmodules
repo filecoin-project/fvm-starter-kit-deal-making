@@ -1,6 +1,3 @@
-[submodule "client-contract/lib/forge-std"]
-	path = client-contract/lib/forge-std
-	url = https://github.com/foundry-rs/forge-std
 [submodule "fevm-hardhat-kit"]
 	path = fevm-hardhat-kit
 	url = https://github.com/filecoin-project/fevm-hardhat-kit
