@@ -1,5 +1,3 @@
-*Note: This document has prior revisions visible in: https://www.notion.so/pl-strflt/FVM-Deal-Making-9180651d57334279a24f3e9786d44c66*
-
 # Introduction
 Welcome to the fevm deal making kit! This kit has several tools to help enable you make storage deals on the Filecoin network via Solidity smart contracts. This kit assumes some knowledge at interacting with the Filecoin Virtual Machine (FVM). If you are new to the FVM, you may want to start with these starter kits instead:
 
@@ -14,7 +12,7 @@ The whole flow for deal making (from file upload to making a deal on FVM) is des
 + [Using this Repo](#using-this-repo)
 + [Data Prep](#1-data-prep)
     - [Option A: Use FVM Tooling](#option-a-use-fvm-tooling)
-+   - [Option B: Use the generate-car tool locally](#option-b-use-the-generate-car-tool-locally)
+    - [Option B: Use the generate-car tool locally](#option-b-use-the-generate-car-tool-locally)
 + [Creating a Deal Proposal Payload](#2-creating-a-deal-proposal-payload)
 + [Calling the makeDealProposal method](#3-calling-the-makedealproposal-method)
     - [Option A: Use the dapp frontend](#option-a-use-the-dapp-frontend)
@@ -26,8 +24,8 @@ The whole flow for deal making (from file upload to making a deal on FVM) is des
 Get started by typing in the following commands into your terminal/command prompt. This will clone the repo and all submodules, switch into the hardhat kit, and install packages: 
 
 ```
-git clone --recurse-submodules https://github.com/filecoin-project/fvm-starter-kit-deal-making.git~
-cd fevm-hardhat-kit
+git clone https://github.com/filecoin-project/fvm-starter-kit-deal-making.git~
+cd fvm-starter-kit-deal-making
 yarn install
 ```
 
@@ -71,10 +69,12 @@ One option is to go to the [FVM Data Depot](https://data.lighthouse.storage/), u
 
 ### Option B: Use the generate-car tool locally
 
-Another option is to use the [`generate-car`](https://github.com/tech-greedy/generate-car tool, written in the language Go, and included as a submodule within the hardhat kit. This tool was included in this repo when we cloned it. If you are currently in the fevm-hardhat-kit directory, run these commands to switch into the proper directory and build the tool:
+Another option is to use the [`generate-car`](https://github.com/tech-greedy/generate-car) tool, written in the language Go, and included as a submodule within this repo.
+
+If you are currently in this repo's directory, run these commands to switch into the proper directory and build the tool:
 
 ```
-cd tools/go-generate-car
+cd generate-car
 make build
 ```
 
@@ -139,7 +139,7 @@ Once the deal handshake is completed (described more in part III), you should be
 
 ### Option B: Use the hardhat task
 
-You can also call the method by running the [make-deal-proposal task in the hardhat starter kit](https://github.com/filecoin-project/fevm-hardhat-kit/blob/main/tasks/deal-client/make-deal-proposal.js). Below is an example of how to run the task. Make sure to replace any values with your own.
+You can also call the method by running the make-deal-proposal task. Below is an example of how to run the task. Make sure to replace any values with your own.
 
 ```
 yarn hardhat make-deal-proposal --contract 0xD4aac4D8fBc7575bDf5C19f900634d6c61a00a79 --piece-cid baga6ea4seaqayn6kwvhnajfgec2qakj7vb5aeqisbbnojunowdyapkdfcyhzcpy --piece-size 262144 --verified-deal false --label "baga6ea4seaqayn6kwvhnajfgec2qakj7vb5aeqisbbnojunowdyapkdfcyhzcpy" --start-epoch 520000 --end-epoch 1555200 --storage-price-per-epoch 0 --provider-collateral 0 --client-collateral 0 --extra-params-version 1 --location-ref "https://data-depot.lighthouse.storage/api/download/download_car?fileId=005b377e-89a6-44c6-aa04-871509019bec.car" --car-size 194875 --skip-ipni-announce false --remove-unsealed-copy false
@@ -174,8 +174,3 @@ Note that we have a few active threads and FRCs where the client contract is bei
  - [Our latest FRC draft, WIP](https://www.notion.so/WIP-Deal-Client-Contract-FRC-458e625f13b14c70bfdfe7ed64007b6c)
  - [FIP discussion 604](https://github.com/filecoin-project/FIPs/discussions/604)
  - [Boost discussion 1160](https://github.com/filecoin-project/boost/discussions/1160)
- 
- 
-
- 
-

@@ -1,3 +1,3 @@
-[submodule "fevm-hardhat-kit"]
-	path = fevm-hardhat-kit
-	url = https://github.com/filecoin-project/fevm-hardhat-kit
+[submodule "generate-car"]
+	path = generate-car
+	url = https://github.com/tech-greedy/generate-car
