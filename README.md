@@ -29,7 +29,7 @@ cd fvm-starter-kit-deal-making
 yarn install
 ```
 
-Add your private key as an environment variable by running this comman, replacing the text *abcdef* with your private key:
+Add your private key as an environment variable by running this command, replacing the text *abcdef* with your private key:
 
 ``` 
 export PRIVATE_KEY='abcdef'
@@ -54,7 +54,7 @@ For any file you want to upload you need to convert it to a .car file and obtain
 
 * The size of the piece in bytes. This is the `piecesize`. 
 
-* The DataCID of the original raw file. This is essentailly a has that represents the original file. This is known as the `commD` or sometimes the `label`.
+* The DataCID of the original raw file. This is essentially a has that represents the original file. This is known as the `commD` or sometimes the `label`.
 
 * The size of the CAR file that represents the file in bytes. This is known as the `carSize`.
 
@@ -112,7 +112,7 @@ Here is an example with these fields initialized:
     "baga6ea4seaqesm5ghdwocotmdavlrrzssfl33xho6xtrr5grwyi5gj3vtairaoq", // DataCID (generated in previous step)
     520000, // startEpoch (when you want the storage to start)
     1555200, // endEpoch (when you want the storage to end)
-    0, // storagePricePerEpoch (how much attoFIL per GiB per 30s you are offering for this deat, set to 0 for a free deal)
+    0, // storagePricePerEpoch (how much attoFIL per GiB per 30s you are offering for this deal, set to 0 for a free deal)
     0, // providerCollateral (how much collateral the provider must put up for the deal)
     0, // clientCollateral (how much collateral you, the client, must put up for the deal)
     1, // extraParamsVersion (set to 1)
