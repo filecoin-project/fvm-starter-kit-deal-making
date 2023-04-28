@@ -1482,10 +1482,10 @@
   resolved "https://registry.yarnpkg.com/@yarnpkg/lockfile/-/lockfile-1.1.0.tgz#e77a97fbd345b76d83245edcd17d393b1b41fb31"
   integrity sha512-GpSwvyXOcOOlV70vbnzjj4fW5xW/FdUF6nQEt1ENy7m4ZCczi1+/buVUPAqmGfqznsORNFzUMjctTIp8a9tuCQ==
 
-"@zondax/filecoin-solidity@^4.0.2":
-  version "4.0.2"
-  resolved "https://registry.yarnpkg.com/@zondax/filecoin-solidity/-/filecoin-solidity-4.0.2.tgz#8ecd7368c0cb948a46ee75742d3a16c7f6c787e0"
-  integrity sha512-mHMcuw0rqZPK4ligHEjixDALLNCtVMTJeVh+MAGArPWFOzBKt3vFYgQZMsJpi8bLiFeQiEBGb33KMU8mmyqp/A==
+"@zondax/filecoin-solidity@^4.0.3":
+  version "4.0.3"
+  resolved "https://registry.yarnpkg.com/@zondax/filecoin-solidity/-/filecoin-solidity-4.0.3.tgz#81373a6fb4c7ae5aea86fe78e2e92c8316cd6d54"
+  integrity sha512-foCdKTpKd93JudDYWREeaFvd5ox8YRvSphRcxd3S7ZPikcQALRcwDTHFsEnrT3HOA4JnllkXUz8IaLjCGAPR1Q==
   dependencies:
     "@zondax/solidity-bignumber" "^0.1.0"
     solidity-cborutils "^2.0.0"
