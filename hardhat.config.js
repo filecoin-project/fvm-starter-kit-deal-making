@@ -17,9 +17,9 @@ module.exports = {
           },
         },
       },
-    defaultNetwork: "calibration",
+    defaultNetwork: "Calibration",
     networks: {
-        calibration: {
+        Calibration: {
             chainId: 314159,
             url: "https://api.calibration.node.glif.io/rpc/v1",
             accounts: [PRIVATE_KEY],
