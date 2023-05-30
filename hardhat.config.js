@@ -17,11 +17,11 @@ module.exports = {
           },
         },
       },
-    defaultNetwork: "Hyperspace",
+    defaultNetwork: "calibration",
     networks: {
-        Hyperspace: {
-            chainId: 3141,
-            url: "https://api.hyperspace.node.glif.io/rpc/v1",
+        calibration: {
+            chainId: 314159,
+            url: "https://api.calibration.node.glif.io/rpc/v1",
             accounts: [PRIVATE_KEY],
         },
         FilecoinMainnet: {
