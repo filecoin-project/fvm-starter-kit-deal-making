@@ -54,7 +54,7 @@ For any file you want to upload you need to convert it to a .car file and obtain
 
 * The size of the piece in bytes. This is the `piecesize`. 
 
-* The DataCID of the original raw file. This is essentially a has that represents the original file. This is known as the `commD` or sometimes the `label`.
+* The DataCID of the original raw file. This is essentially a hash that represents the original file. This is known as the `commD` or sometimes the `label`.
 
 * The size of the CAR file that represents the file in bytes. This is known as the `carSize`.
 
@@ -135,7 +135,7 @@ Here is an example with these fields initialized:
 
 Take the four outputs of part (I) and put each into the four fields of the [frontend in this repo](https://github.com/filecoin-project/fvm-starter-kit-deal-making/tree/main/frontend). 
 
-Once the deal handshake is completed (described more in part III), you should be able to see the deal ID for this transaction in Filfox on the frontend. Here is a previous example of a DealID submitted through the frontend: https://hyperspace.filfox.info/en/deal/1016.
+Once the deal handshake is completed (described more in part III), you should be able to see the deal ID for this transaction in Filfox on the frontend. Here is a previous example of a DealID submitted through the frontend: https://calibration.filfox.info/en/deal/1016
 
 ### Option B: Use the hardhat task
 
