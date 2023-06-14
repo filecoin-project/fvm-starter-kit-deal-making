@@ -4,6 +4,8 @@ Welcome to the fevm deal making kit! This kit has several tools to help enable y
 * [FEVM Hardhat Starter Kit](https://github.com/filecoin-project/fevm-hardhat-kit)
 * [FEVM Foundry Starter Kit](https://github.com/filecoin-project/fevm-foundry-kit)
 
+Also have a look at this accompanying [Quickstart](https://pl-strflt.notion.site/Data-FVM-Getting-Started-with-the-Client-Contract-745e307f48a147148293aebace746c7f) that dives a bit deeper with the resources described in this repo.
+
 The whole flow for deal making (from file upload to making a deal on FVM) is described here: 
 
 ![shapes (6) copy](https://user-images.githubusercontent.com/782153/224225887-1a546129-62b5-41e8-b98d-eb52fe35fac8.png)
@@ -23,7 +25,7 @@ The whole flow for deal making (from file upload to making a deal on FVM) is des
 
 Get started by typing in the following commands into your terminal/command prompt. This will clone the repo and all submodules, switch into the hardhat kit, and install packages: 
 
-```
+```bash
 git clone https://github.com/filecoin-project/fvm-starter-kit-deal-making.git~
 cd fvm-starter-kit-deal-making
 yarn install
@@ -31,13 +33,13 @@ yarn install
 
 Add your private key as an environment variable by running this command, replacing the text *abcdef* with your private key:
 
-``` 
+```bash
 export PRIVATE_KEY='abcdef'
 ```
 
 Now type in the following command to deploy the contracts in the kit:
 
-```
+```bash
 yarn hardhat deploy
 ```
 Make sure to record the address of where the `DealClient.sol` is deployed for later use.
@@ -73,14 +75,14 @@ Another option is to use the [`generate-car`](https://github.com/tech-greedy/gen
 
 If you are currently in this repo's directory, run these commands to switch into the proper directory and build the tool:
 
-```
+```bash
 cd generate-car
 make build
 ```
 
 Now you can create a directory for the tools output and use the utility as follows:
 
-```
+```bash
 $ mkdir out
 $ ./generate-car --single -i /path/to/file/A.txt -o out -p /path/to/file/
 ```
@@ -104,7 +106,7 @@ Because of the way the client contract is set up, you need to prepare a deal pro
 
 Here is an example with these fields initialized:
 
-```
+```javascript
   const DealRequestStruct = [
     "baga6ea4seaqesm5ghdwocotmdavlrrzssfl33xho6xtrr5grwyi5gj3vtairaoq", // pieceCID (Generated in previous step)
     262144, // pieceSize (Generated in previous step)
@@ -141,7 +143,7 @@ Once the deal handshake is completed (described more in part III), you should be
 
 You can also call the method by running the make-deal-proposal task. Below is an example of how to run the task. Make sure to replace any values with your own.
 
-```
+```bash
 yarn hardhat make-deal-proposal --contract 0xD4aac4D8fBc7575bDf5C19f900634d6c61a00a79 --piece-cid baga6ea4seaqayn6kwvhnajfgec2qakj7vb5aeqisbbnojunowdyapkdfcyhzcpy --piece-size 262144 --verified-deal false --label "baga6ea4seaqayn6kwvhnajfgec2qakj7vb5aeqisbbnojunowdyapkdfcyhzcpy" --start-epoch 520000 --end-epoch 1555200 --storage-price-per-epoch 0 --provider-collateral 0 --client-collateral 0 --extra-params-version 1 --location-ref "https://data-depot.lighthouse.storage/api/download/download_car?fileId=005b377e-89a6-44c6-aa04-871509019bec.car" --car-size 194875 --skip-ipni-announce false --remove-unsealed-copy false
 ```
 
@@ -151,7 +153,7 @@ The Client Contract (CC) is built to interact with Boost SPs and generate deals 
 
 The CC primarily interacts with the Boost SPs through an event known as `DealProposalCreate`, which looks like this:
 
-```
+```solidity
 event DealProposalCreate(
     bytes32 indexed id,
     uint64 size,
