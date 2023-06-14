@@ -174,7 +174,7 @@ function Inputs() {
         Connect Wallet
       </button>
       { window && <div style={{ color: "green" }}> Connected </div>}
-      { network && <div style={{ color: "green" }}> Network: Hyperspace </div>}
+      { network && <div style={{ color: "green" }}> Network: Calibration </div>}
       </div></div>
     );
   };
@@ -202,9 +202,9 @@ function Inputs() {
         const dealID = await dealClient.pieceDeals(cid.bytes);
         console.log(dealID);
         if (dealID !== undefined && dealID !== "0") {
-          // If your deal has already been submitted, you can get the deal ID by going to https://hyperspace.filfox.info/en/deal/<dealID>
+          // If your deal has already been submitted, you can get the deal ID by going to https://calibration.filfox.info/en/deal/<dealID>
           // The link will show up in the frontend: once a deal has been submitted, its deal ID stays constant. It will always have the same deal ID.
-          setDealID("https://hyperspace.filfox.info/en/deal/" + dealID);
+          setDealID("https://calibration.filfox.info/en/deal/" + dealID);
           clearInterval(refresh);
         }
       }, 5000
