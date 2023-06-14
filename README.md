@@ -26,7 +26,7 @@ The whole flow for deal making (from file upload to making a deal on FVM) is des
 Get started by typing in the following commands into your terminal/command prompt. This will clone the repo and all submodules, switch into the hardhat kit, and install packages: 
 
 ```bash
-git clone https://github.com/filecoin-project/fvm-starter-kit-deal-making.git~
+git clone https://github.com/filecoin-project/fvm-starter-kit-deal-making.git
 cd fvm-starter-kit-deal-making
 yarn install
 ```
